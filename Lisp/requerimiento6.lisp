@@ -56,3 +56,5 @@
     (* 100.0 (/ (+ (* color ciclos) resto) 3600))
 )
 
+;CASOS DE PRUEBA
+;no necesita casos de prueba debido a que no se ingresan datos

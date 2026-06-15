@@ -1,5 +1,12 @@
 (load "funcionesAux.lisp")
 
+
+;; ========================================================
+;; FUNCIÓN: calcular-timer
+;; NATURALEZA: Pura (misma entrada, misma salida)
+;; ESTRATEGIA: Invoca otra funcion pasando los valores como parametro
+;; IMPACTO: No destructiva
+;; ========================================================
 (defun calcular-timer (tiempo)
   (if (not (integerp tiempo))
 
@@ -17,6 +24,12 @@
          aValor
          iValor))))
 
+;; ==========================================================
+;; FUNCIÓN: calcular-rem
+;; NATURALEZA: Pura
+;; ESTRATEGIA: Composición de Funciones + operacion aritmetica
+;; IMPACTO: No destructiva
+;; ==========================================================
 (defun calcular-rem (tiempo rojo verde amarillo intermitente)
   (compararRem
     (rem tiempo
@@ -28,6 +41,12 @@
     amarillo
     intermitente))
 
+;; ==========================================================
+;; FUNCIÓN: compararRem
+;; NATURALEZA: Pura
+;; ESTRATEGIA: Función Condicional
+;; IMPACTO: No destructiva
+;; ==========================================================
 (defun compararRem (resto rojo verde amarillo intermitente)
 
   (cond
@@ -59,3 +78,13 @@
      "error")))
 
 
+;;CASOS DE PRUEBA
+
+;validos:
+
+;invalidos:
+(calcular-timer 10.5) ;resultado esperado "tiempo ingresado incorrecto"
+
+(calcular-timer "120") ;resultado esperado "tiempo ingresado incorrecto"
+
+(calcular-timer '(120)) ;resultado esperado "tiempo ingresado incorrecto"
