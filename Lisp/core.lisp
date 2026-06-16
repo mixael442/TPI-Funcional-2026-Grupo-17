@@ -23,7 +23,6 @@
 ;              Si alguno es incorrecto, devuelve un mensaje de error.
 ; IMPACTO: No destructiva
 ; ========================================================
-
 (defun transicion (color-actual cambiar-a)
 
   (cond
@@ -54,10 +53,15 @@
      (list 'error "transicion-no-valida"))))
 
 ; ========================================================
-;TIMER - REQUERIMIENTO 2
-
+;REQUERIMIENTO 2
+;; ========================================================
+;; FUNCIÓN: calcular-timer
+;; NATURALEZA: Pura (misma entrada, misma salida)
+;; ESTRATEGIA: Invoca otra funcion pasando los valores como parametro
+;; IMPACTO: No destructiva
+;; ========================================================
 (defun calcular-timer (tiempo)
-  (if (not (integerp tiempo))
+  (if (or (not (integerp tiempo)) (not (plusp tiempo)))
 
       "tiempo ingresado incorrecto"
 
@@ -73,7 +77,12 @@
          aValor
          iValor))))
 
-
+;; ==========================================================
+;; FUNCIÓN: calcular-rem
+;; NATURALEZA: Pura
+;; ESTRATEGIA: Composición de Funciones + operacion aritmetica
+;; IMPACTO: No destructiva
+;; ==========================================================
 (defun calcular-rem (tiempo rojo verde amarillo intermitente)
   (compararRem
     (rem tiempo
@@ -85,6 +94,12 @@
     amarillo
     intermitente))
 
+;; ==========================================================
+;; FUNCIÓN: compararRem
+;; NATURALEZA: Pura
+;; ESTRATEGIA: Función Condicional
+;; IMPACTO: No destructiva
+;; ==========================================================
 (defun compararRem (resto rojo verde amarillo intermitente)
 
   (cond
@@ -235,7 +250,6 @@
 ;; ESTRATEGIA: Operacion aritmética (suma)
 ;; IMPACTO: No destructiva 
 ;; ========================================================
-
 (defun duracion()
 
   (let ((rojo (obtener-color :rojo))
@@ -271,7 +285,6 @@
 ;;;; Entrada: minutos
 ;;;; Salida: número de ciclos completos en ese período
 ;;;; ============================================================
-
 (defun cantidad-ciclos (minutos)
 
   (if (not (integerp minutos))
@@ -291,7 +304,6 @@
 ; NATURALEZA: Pura.
 ; ESTRATEGIA: Composición funcional y operaciones aritméticas.
 ; IMPACTO: No destructiva
-
 (defun porcentaje-color ()
     (let* ((rojo (+ (obtener-color :rojo)
                   (obtener-color :intermitente)))
