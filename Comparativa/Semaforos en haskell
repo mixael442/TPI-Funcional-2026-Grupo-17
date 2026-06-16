@@ -6,78 +6,57 @@ transicion colorActual cambiarA
     | colorActual /= "en-rojo"
       && colorActual /= "en-amarillo"
       && colorActual /= "en-verde"
-      && colorActual /= "rojo-intermitente"
-      && colorActual /= "amarillo-intermitente"
-      && colorActual /= "verde-intermitente"
+      && colorActual /= "en-rojo-intermitente"
+      && colorActual /= "en-amarillo-intermitente"
+      && colorActual /= "en-verde-intermitente"
         = ["ERROR: color actual invalido"]
 
     -- Validación del color destino
-    | cambiarA /= "rojo"
-      && cambiarA /= "amarillo"
-      && cambiarA /= "verde"
-      && cambiarA /= "rojo-intermitente"
-      && cambiarA /= "amarillo-intermitente"
-      && cambiarA /= "verde-intermitente"
+
+    | cambiarA /= "en-rojo"
+      && cambiarA /= "en-amarillo"
+      && cambiarA /= "en-verde"
+      && cambiarA /= "en-rojo-intermitente"
+      && cambiarA /= "en-amarillo-intermitente"
+      && cambiarA /= "en-verde-intermitente"
         = ["ERROR: color destino invalido"]
 
     -- Transiciones intermitentes
 
     | colorActual == "en-rojo"
-      && cambiarA == "rojo-intermitente"
+      && cambiarA == "en-rojo-intermitente"
         = [colorActual, "activar-rojo-intermitente"]
 
-    | colorActual == "rojo-intermitente"
-      && cambiarA == "verde"
+    | colorActual == "en-rojo-intermitente"
+      && cambiarA == "en-verde"
         = [colorActual, "cambiar-a-verde"]
 
     | colorActual == "en-verde"
-      && cambiarA == "verde-intermitente"
+      && cambiarA == "en-verde-intermitente"
         = [colorActual, "activar-verde-intermitente"]
 
-    | colorActual == "verde-intermitente"
-      && cambiarA == "amarillo"
+    | colorActual == "en-verde-intermitente"
+      && cambiarA == "en-amarillo"
         = [colorActual, "cambiar-a-amarillo"]
 
     | colorActual == "en-amarillo"
-      && cambiarA == "amarillo-intermitente"
+      && cambiarA == "en-amarillo-intermitente"
         = [colorActual, "activar-amarillo-intermitente"]
 
-    | colorActual == "amarillo-intermitente"
-      && cambiarA == "rojo"
+    | colorActual == "en-amarillo-intermitente"
+      && cambiarA == "en-rojo"
         = [colorActual, "cambiar-a-rojo"]
 
     -- Transiciones normales
 
-    | cambiarA == "rojo"
+    | cambiarA == "en-rojo"
         = [colorActual, "cambiar-a-rojo"]
 
-    | cambiarA == "amarillo"
+    | cambiarA == "en-amarillo"
         = [colorActual, "cambiar-a-amarillo"]
 
-    | cambiarA == "verde"
+    | cambiarA == "en-verde"
         = [colorActual, "cambiar-a-verde"]
 
     | otherwise
         = [colorActual, "accion-por-defecto"]
-
-
-main :: IO ()
-main = do
-
-    putStrLn "===== SEMAFORO INTELIGENTE ====="
-
-    putStrLn "Ingrese el color actual:"
-    colorActual <- getLine
-
-    putStrLn "Valores posibles:"
-    putStrLn "en-rojo"
-    putStrLn "en-amarillo"
-    putStrLn "en-verde"
-    putStrLn "rojo-intermitente"
-    putStrLn "amarillo-intermitente"
-    putStrLn "verde-intermitente"
-
-    putStrLn "Ingrese el color destino:"
-    cambiarA <- getLine
-
-    print (transicion colorActual cambiarA)
