@@ -14,4 +14,4 @@
 
 #### Gonzalez Vanessa Marlene
 
-## Link al video de la demo tecnica [defensa del trabajo](https://www.youtube.com/ "youtube")
+## Link al video de la demo tecnica [defensa del trabajo](https://youtu.be/iXMZIHqgj0A?feature=shared "youtube")

@@ -430,3 +430,25 @@
 (ejecutar-menu)
 
 
+;;CASOS DE PRUEBA del requerimiento 5
+;validos:
+;(cantidad-ciclos 15) ;resultado esperado 4
+;(cantidad-ciclos 20) ;resultado esperado 5
+;(cantidad-ciclos 60) ;resultado esperado 16
+;invalidos:
+;(cantidad-ciclos 10.5) ;resultado esperado "ingresar un numero entero"
+;(cantidad-ciclos "30") ;resultado esperado "ingresar un numero entero"
+;(cantidad-ciclos '(30)) ;resultado esperado "ingresar un numero entero"
+
+;;CASOS DE PRUEBA del requerimiento 2
+
+;validos:
+;(calcular-timer 1718841650) ;resultado esperado "EN-ROJO"
+;(calcular-timer 1718841700) ;resultado esperado "EN-VERDE"
+;(calcular-timer 1718841820) ;resultado esperado "EN-AMARILLO"
+;invalidos:
+;(calcular-timer 10.5) ;resultado esperado "tiempo ingresado incorrecto"
+;(calcular-timer "120") ;resultado esperado "tiempo ingresado incorrecto"
+;(calcular-timer '(120)) ;resultado esperado "tiempo ingresado incorrecto"
+
+
