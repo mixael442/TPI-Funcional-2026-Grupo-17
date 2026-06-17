@@ -5,9 +5,13 @@
 # INTEGRANTES DEL GRUPO
 
 #### Misael Adonias Los santos
+
 #### Cáceres Lourdes Gabriela
+
 #### Aponte Eduardo Josue
+
 #### Susana Nelida Gómez
+
 #### Gonzalez Vanessa Marlene
 
 ## Link al video de la demo tecnica [defensa del trabajo](https://www.youtube.com/ "youtube")
