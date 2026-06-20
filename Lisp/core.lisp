@@ -429,6 +429,17 @@
 )
 (ejecutar-menu)
 
+;;CASOS DE PRUEBA del requerimiento 4
+
+;validos:
+;(cantidad-ciclos 15) ;resultado esperado 4
+;(cantidad-ciclos 20) ;resultado esperado 5
+;(cantidad-ciclos 60) ;resultado esperado 16
+
+;invalidos:
+;(cantidad-ciclos 10.5) ;resultado esperado "ingresar un numero entero"
+;(cantidad-ciclos "30") ;resultado esperado "ingresar un numero entero"
+;(cantidad-ciclos '(30)) ;resultado esperado "ingresar un numero entero"
 
 ;;CASOS DE PRUEBA del requerimiento 5
 ;validos:
