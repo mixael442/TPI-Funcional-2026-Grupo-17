@@ -250,7 +250,7 @@
 ;; ESTRATEGIA: Operacion aritmética (suma)
 ;; IMPACTO: No destructiva 
 ;; ========================================================
-(defun duracion()
+(defun duracion-ciclo()
 
   (let ((rojo (obtener-color :rojo))
         (verde (obtener-color :verde))
