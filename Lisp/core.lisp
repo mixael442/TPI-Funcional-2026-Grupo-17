@@ -1,28 +1,36 @@
-
-;FUNCIONES AUXILIARES
-;DESCRIPCION: extrae los valores necesarios del archivo config.json
+;; ========================================================
+;; FUNCIONES AUXILIARES
+;; ========================================================
+;; DESCRIPCION: extrae los valores necesarios del archivo config.json
+;; ========================================================
 (load "~/quicklisp/setup.lisp")
 (ql:quickload :cl-json)
 
+;; ========================================================
+;; Funcion: leer-config
+;; ========================================================
 (defun leer-config ()
   (with-open-file (archivo "config.json"
                      :direction :input)
     (json:decode-json archivo)))
-
+    
+;; ========================================================
+;; FUNCIÓN: obtener-color
+;; ========================================================
 (defun obtener-color (clave)
-  (cdr (ASSOC clave (leer-config)));par que no devuelva el par, y ahorro una banda de cdrs jsjs
+  (cdr (ASSOC clave (leer-config)));para que no devuelva el par, y ahorro una banda de cdrs jsjs
 )
 
-; ========================================================
-;REQUERIMIENTO 1
-; ========================================================
-; FUNCIÓN: transicion
-; NATURALEZA: Pura
-; DESCRIPCIÓN: Simula el cambio de estado de un semáforo. 
+;; ========================================================
+;; REQUERIMIENTO 1
+;; ========================================================
+;; FUNCIÓN: transicion
+;; NATURALEZA: Pura
+;; DESCRIPCIÓN: Simula el cambio de estado de un semáforo. 
 ;              Valida que el color actual y el color destino sean válidos. 
 ;              Si alguno es incorrecto, devuelve un mensaje de error.
-; IMPACTO: No destructiva
-; ========================================================
+;; IMPACTO: No destructiva
+;; ========================================================
 (defun transicion (color-actual cambiar-a)
 
   (cond
@@ -52,8 +60,8 @@
     (t
      (list 'error "transicion-no-valida"))))
 
-; ========================================================
-;REQUERIMIENTO 2
+;; ========================================================
+;; REQUERIMIENTO 2
 ;; ========================================================
 ;; FUNCIÓN: calcular-timer
 ;; NATURALEZA: Pura (misma entrada, misma salida)
@@ -130,14 +138,13 @@
     (t
      "error")))
 
-;AUDITORÍA - REQUERIMIENTO 3
-
-;FUNCION: registrar-evento
-;NATURALEZA: Pura
-;DESCRIPCIÓN:
-;Agrega un nuevo evento al historial y devuelve
-;un historial actualizado.
-;IMPACTO: no destructiva
+;; ========================================================
+;; AUDITORÍA - REQUERIMIENTO 3
+;; ========================================================
+;; FUNCION: registrar-evento
+;; NATURALEZA: Pura
+;; DESCRIPCIÓN: Agrega un nuevo evento al historial y devuelve un historial actualizado.
+;; IMPACTO: no destructiva
 (defun registrar-evento
        (timestamp estado-anterior estado-nuevo historial)
 
@@ -145,57 +152,56 @@
    (list timestamp estado-anterior estado-nuevo)
    historial))
 
-
-;FUNCION: mostrar-evento
-;NATURALEZA: Impura
-;DESCRIPCIÓN:
-;Muestra un único evento por pantalla.
-;IMPACTO: no destructiva
+;; ========================================================
+;; FUNCION: mostrar-evento
+;; NATURALEZA: Impura
+;; DESCRIPCIÓN: Muestra un único evento por pantalla.
+;; IMPACTO: no destructiva
+;; ========================================================
 (defun mostrar-evento (evento)
-
   (format t
           "Tiempo ~A: la luz ha cambiado de ~A a ~A~%"
           (car evento)
           (cadr evento)
-          (caddr evento)))
+          (caddr evento))
+)
 
-
-;FUNCION: mostrar-historial
-;NATURALEZA: Impura
-;DESCRIPCIÓN:
-;Recorre recursivamente el historial y muestra cada evento.
-;IMPACTO: no destructiva
+;; ========================================================
+;; FUNCION: mostrar-historial
+;; NATURALEZA: Impura
+;; DESCRIPCIÓN: Recorre recursivamente el historial y muestra cada evento.
+;; IMPACTO: no destructiva
+;; ========================================================
 (defun mostrar-historial (historial)
-
   (cond
     ((null historial) nil)
 
     (t
      (mostrar-evento (car historial))
-     (mostrar-historial (cdr historial)))))
+     (mostrar-historial (cdr historial))))
+)
 
-
-;FUNCION: evento-a-texto
-;NATURALEZA: Pura
-;DESCRIPCIÓN:
-;Convierte un evento en una cadena de texto.
-;IMPACTO: no destructiva
+;; ========================================================
+;; FUNCION: evento-a-texto
+;; NATURALEZA: Pura
+;; DESCRIPCIÓN: Convierte un evento en una cadena de texto.
+;; IMPACTO: no destructiva
+;; ========================================================
 (defun evento-a-texto (evento)
-
   (format nil
           "Tiempo ~A: la luz ha cambiado de ~A a ~A~%"
           (car evento)
           (cadr evento)
-          (caddr evento)))
+          (caddr evento))
+)
 
-
-;FUNCION: historial-a-texto
-;NATURALEZA: Pura
-;DESCRIPCIÓN:
-;Convierte todo el historial en una cadena de texto.
-;IMPACTO: no destructiva
+;; ========================================================
+;; FUNCION: historial-a-texto
+;; NATURALEZA: Pura
+;; DESCRIPCIÓN: Convierte todo el historial en una cadena de texto.
+;; IMPACTO: no destructiva
+;; ========================================================
 (defun historial-a-texto (historial)
-
   (cond
     ((null historial) "")
 
@@ -203,14 +209,15 @@
      (concatenate
       'string
       (evento-a-texto (car historial))
-      (historial-a-texto (cdr historial))))))
+      (historial-a-texto (cdr historial)))))
+)
 
-
-;FUNCION: guardar-informe
-;NATURALEZA: Impura
-;DESCRIPCIÓN:
-;Genera un archivo de texto con el informe de auditoría.
-;IMPACTO:  no destructiva
+;; ========================================================
+;; FUNCION: guardar-informe
+;; NATURALEZA: Impura
+;; DESCRIPCIÓN: Genera un archivo de texto con el informe de auditoría.
+;; IMPACTO: no destructiva
+;; ========================================================
 (defun guardar-informe (historial)
 
   (with-open-file
@@ -225,12 +232,12 @@
      (informe historial)
      archivo)))
 
-
-;FUNCION: informe
-;NATURALEZA: Pura
-;DESCRIPCIÓN:
-;Genera el informe completo como una cadena de texto.
-;IMPACTO: no destructiva
+;; ========================================================
+;; FUNCION: informe
+;; NATURALEZA: Pura
+;; DESCRIPCIÓN: Genera el informe completo como una cadena de texto.
+;; IMPACTO: no destructiva
+;; ========================================================
 (defun informe (historial)
 
   (concatenate
@@ -245,24 +252,20 @@
 ;; ========================================================
 ;; REQUERIMIENTO 4
 ;; ========================================================
-;; FUNCIÓN: duracion
+;; FUNCIÓN: duracion-ciclo
 ;; NATURALEZA: Pura (no produce efectos secundarios)
 ;; ESTRATEGIA: Operacion aritmética (suma)
 ;; IMPACTO: No destructiva 
 ;; ========================================================
 (defun duracion-ciclo()
-
   (let ((rojo (obtener-color :rojo))
         (verde (obtener-color :verde))
         (amarillo (obtener-color :amarillo))
         (intermitente (obtener-color :intermitente)))
 
-    (+ rojo
-       intermitente
-       verde
-       intermitente
-       amarillo
-       intermitente)));fin 
+    (+ rojo intermitente verde intermitente amarillo intermitente))
+);fin 
+
 ;; ========================================================
 ;; FUNCIÓN: recomendacion-ciclo 
 ;; NATURALEZA: Pura (misma entrada, misma salida)
@@ -284,7 +287,7 @@
 ;;;; FUNCIÓN: cantidad-ciclos
 ;;;; Entrada: minutos
 ;;;; Salida: número de ciclos completos en ese período
-;;;; ============================================================
+;; ========================================================
 (defun cantidad-ciclos (minutos)
 
   (if (not (integerp minutos))
@@ -299,11 +302,14 @@
            (obtener-color :amarillo)
           (* 3 (obtener-color :intermitente))))))
 
-;TIMER - REQUERIMIENTO 6
-;FUNCIÓN: porcentaje-color
-; NATURALEZA: Pura.
-; ESTRATEGIA: Composición funcional y operaciones aritméticas.
-; IMPACTO: No destructiva
+;; ========================================================
+;; REQUERIMIENTO 6: TIMER
+;; ========================================================
+;; FUNCIÓN: porcentaje-color
+;; NATURALEZA: Pura.
+;; ESTRATEGIA: Composición funcional y operaciones aritméticas.
+;; IMPACTO: No destructiva
+;; ========================================================
 (defun porcentaje-color ()
     (let* ((rojo (+ (obtener-color :rojo)
                   (obtener-color :intermitente)))
@@ -333,11 +339,12 @@
             (calcular-rest resto rojo verde amarillo 'amarillo)
             ciclos))
      )))
-
-; FUNCIÓN: calcular-rest
-; NATURALEZA: Pura
-; ESTRATEGIA: Condicional mediante evaluación de casos.
-; IMPACTO: No destructiva
+;; ========================================================
+;; FUNCIÓN: calcular-rest
+;; NATURALEZA: Pura
+;; ESTRATEGIA: Condicional mediante evaluación de casos.
+;; IMPACTO: No destructiva
+;; ========================================================
 (defun calcular-rest (resto rojo verde amarillo actual)
     (cond
         ((equal actual 'rojo)(min resto rojo))
@@ -346,15 +353,22 @@
         (t 0)
     )
 )
-; FUNCIÓN: calcular
-; NATURALEZA: Pura
-; ESTRATEGIA: Operación aritmética.
-; IMPACTO: No destructiva
+;; ========================================================
+;; FUNCIÓN: calcular
+;; NATURALEZA: Pura
+;; ESTRATEGIA: Operación aritmética.
+;; IMPACTO: No destructiva
+;; ========================================================
 (defun calcular (color resto ciclos)
     (* 100.0 (/ (+ (* color ciclos) resto) 3600))
 )
 
-
+;; ========================================================
+;; FUNCIÓN: mostrar-menu
+;; NATURALEZA: Pura
+;; ESTRATEGIA: Estructura condicional.
+;; IMPACTO: No destructiva
+;; ========================================================
 (defun mostrar-menu ()
 
   (format t "~%")
@@ -368,8 +382,14 @@
   (format t "0 - Salir~%")
   (format t "Seleccione una opcion: ")
   (terpri)
-  (read))
+  (read));fin
 
+;; ========================================================
+;; FUNCIÓN: ejecutar-menu
+;; NATURALEZA: Pura
+;; ESTRATEGIA: Condicional.
+;; IMPACTO: No destructiva
+;; ========================================================
 (defun ejecutar-menu ()
   (let ((opcion (mostrar-menu)))
     (cond
@@ -429,17 +449,30 @@
 )
 (ejecutar-menu)
 
-;;CASOS DE PRUEBA del requerimiento 4
 
+;;;; ========================================================
+;;;; REQUERIMIENTO 7: ASEGURAMIENTO DE CALIDAD
+;;;; ========================================================
+
+;;CASOS DE PRUEBA del requerimiento 2
 ;validos:
-;(cantidad-ciclos 15) ;resultado esperado 4
-;(cantidad-ciclos 20) ;resultado esperado 5
-;(cantidad-ciclos 60) ;resultado esperado 16
+;(calcular-timer 1718841650) ;resultado esperado "EN-ROJO"
+;(calcular-timer 1718841700) ;resultado esperado "EN-VERDE"
+;(calcular-timer 1718841820) ;resultado esperado "EN-AMARILLO"
+;invalidos:
+;(calcular-timer 10.5) ;resultado esperado "tiempo ingresado incorrecto"
+;(calcular-timer "120") ;resultado esperado "tiempo ingresado incorrecto"
+;(calcular-timer '(120)) ;resultado esperado "tiempo ingresado incorrecto"
+
+;;CASOS DE PRUEBA del requerimiento 4
+;validos:
+;salida permanente: (recomendacion-ciclo (duracion-ciclo)) ;resultado esperado: 225 segundos "Ciclo demasiado Largo"
+;(recomendacion-ciclo 141) ;resultado esperado: 141 segundos "Ciclo Optimo"
+;(recomendacion-ciclo 28)  ;resultado esperado:  28 segundos "Ciclo demasiado Corto"
 
 ;invalidos:
-;(cantidad-ciclos 10.5) ;resultado esperado "ingresar un numero entero"
-;(cantidad-ciclos "30") ;resultado esperado "ingresar un numero entero"
-;(cantidad-ciclos '(30)) ;resultado esperado "ingresar un numero entero"
+;(recomendacion-ciclo 'rojo) ;resultado esperado: ERROR "Tipo de dato incorrecto. Debe ser numérico"
+;(recomendacion-ciclo -37)   ;resultado esperado: ERROR "El numero debe ser mayor o igual a 0 (positivo)"
 
 ;;CASOS DE PRUEBA del requerimiento 5
 ;validos:
@@ -450,16 +483,3 @@
 ;(cantidad-ciclos 10.5) ;resultado esperado "ingresar un numero entero"
 ;(cantidad-ciclos "30") ;resultado esperado "ingresar un numero entero"
 ;(cantidad-ciclos '(30)) ;resultado esperado "ingresar un numero entero"
-
-;;CASOS DE PRUEBA del requerimiento 2
-
-;validos:
-;(calcular-timer 1718841650) ;resultado esperado "EN-ROJO"
-;(calcular-timer 1718841700) ;resultado esperado "EN-VERDE"
-;(calcular-timer 1718841820) ;resultado esperado "EN-AMARILLO"
-;invalidos:
-;(calcular-timer 10.5) ;resultado esperado "tiempo ingresado incorrecto"
-;(calcular-timer "120") ;resultado esperado "tiempo ingresado incorrecto"
-;(calcular-timer '(120)) ;resultado esperado "tiempo ingresado incorrecto"
-
-
