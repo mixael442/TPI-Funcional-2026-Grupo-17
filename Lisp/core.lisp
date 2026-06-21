@@ -63,12 +63,12 @@
 ;; ========================================================
 ;; REQUERIMIENTO 2
 ;; ========================================================
-;; FUNCIÓN: calcular-timer
+;; FUNCIÓN: timer
 ;; NATURALEZA: Pura (misma entrada, misma salida)
 ;; ESTRATEGIA: Invoca otra funcion pasando los valores como parametro
 ;; IMPACTO: No destructiva
 ;; ========================================================
-(defun calcular-timer (tiempo)
+(defun timer (tiempo)
   (if (or (not (integerp tiempo)) (not (plusp tiempo)))
 
       "tiempo ingresado incorrecto"
@@ -92,7 +92,7 @@
 ;; IMPACTO: No destructiva
 ;; ==========================================================
 (defun calcular-rem (tiempo rojo verde amarillo intermitente)
-  (compararRem
+  (comparar-rem
     (rem tiempo
          (+ rojo verde amarillo
             (* 3 intermitente)))
@@ -103,12 +103,12 @@
     intermitente))
 
 ;; ==========================================================
-;; FUNCIÓN: compararRem
+;; FUNCIÓN: comparar-rem
 ;; NATURALEZA: Pura
 ;; ESTRATEGIA: Función Condicional
 ;; IMPACTO: No destructiva
 ;; ==========================================================
-(defun compararRem (resto rojo verde amarillo intermitente)
+(defun comparar-rem (resto rojo verde amarillo intermitente)
 
   (cond
 
@@ -262,7 +262,6 @@
         (verde (obtener-color :verde))
         (amarillo (obtener-color :amarillo))
         (intermitente (obtener-color :intermitente)))
-
     (+ rojo intermitente verde intermitente amarillo intermitente))
 );fin 
 
@@ -284,11 +283,11 @@
 
 ;; ========================================================
 ;;;; REQUERIMIENTO 5: PLANIFICACIÓN TEMPORAL
-;;;; FUNCIÓN: cantidad-ciclos
+;;;; FUNCIÓN: ciclos-por-tiempo
 ;;;; Entrada: minutos
 ;;;; Salida: número de ciclos completos en ese período
 ;; ========================================================
-(defun cantidad-ciclos (minutos)
+(defun ciclos-por-tiempo (minutos)
 
   (if (not (integerp minutos))
 
@@ -410,7 +409,7 @@
        (format t "~%Tiempo Actual en Unix (ej. 1781450000): ")
        (let ((tiempo (read)))
          (format t "Semaforo activo: ~A~%"
-                 (calcular-timer tiempo)))
+                 (timer tiempo)))
        (ejecutar-menu))
 ; REQ 3
       ((= opcion 3)
@@ -432,7 +431,7 @@
        (let ((minuto (read)))
         (format t "~%Cantidad de ciclos en ~A minutos: ~A~%"
                     minuto
-                  (cantidad-ciclos minuto)))
+                  (ciclos-por-tiempo minuto)))
        (ejecutar-menu))
 ; REQ 6
       ((= opcion 6)
