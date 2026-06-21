@@ -401,8 +401,8 @@
 ; REQ 4
       ((= opcion 4)
        (format t "~%Duracion ciclo: ~A segundos~%~A~%"
-               (duracion)
-               (recomendacion-ciclo (duracion)))
+               (duracion-ciclo)
+               (recomendacion-ciclo (duracion-ciclo)))
        (format t "~%Presione ENTER para continuar...")
        (read-line)
        (ejecutar-menu))
